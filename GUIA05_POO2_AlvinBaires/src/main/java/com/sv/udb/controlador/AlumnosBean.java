@@ -5,10 +5,11 @@
  */
 package com.sv.udb.controlador;
 
-import com.sv.udb.modelos.Alumnos;
+import com.sv.udb.modelo.Alumnos;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,26 +17,13 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author Alvin
+ * @author REGISTRO
  */
 @Named(value = "alumnosBean")
-@RequestScoped
-public class AlumnosBean {
+@ViewScoped
+public class AlumnosBean implements Serializable{
     private Alumnos objeAlum;
-    private boolean guar;
-    /**
-     * Creates a new instance of AlumnosBean
-     */
-    public AlumnosBean() {
-        
-    }
-    
-    @PostConstruct
-    public void init()
-    {
-        this.objeAlum=new Alumnos();
-        this.guar=true;
-    }
+    private boolean guardar;
 
     public Alumnos getObjeAlum() {
         return objeAlum;
@@ -44,8 +32,26 @@ public class AlumnosBean {
     public void setObjeAlum(Alumnos objeAlum) {
         this.objeAlum = objeAlum;
     }
+
+    public boolean isGuardar() {
+        return guardar;
+    }
     
-    public void Guardar()
+    /**
+     * Creates a new instance of AlumnosBean
+     */
+    
+    public AlumnosBean() {
+    }
+    
+    @PostConstruct
+    public void init()
+    {
+        this.objeAlum = new Alumnos();
+        this.guardar = true;
+    }
+    
+    public void guar()
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("POOPU");
         EntityManager em = emf.createEntityManager();
@@ -55,12 +61,17 @@ public class AlumnosBean {
         {
             em.persist(this.objeAlum);
             tx.commit();
+            this.guardar = true;
         }
         catch(Exception ex)
         {
             tx.rollback();
+            ex.printStackTrace();
         }
-        em.close();
-        emf.close();
+        finally
+        {
+            em.close();
+            emf.close();            
+        }
     }
 }

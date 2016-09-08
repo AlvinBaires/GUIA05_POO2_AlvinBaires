@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.udb.modelos;
+package com.sv.udb.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alvin
+ * @author REGISTRO
  */
 @Entity
-@Table(name = "alumnos", catalog = "parcial01_poo2_alvinbaires", schema = "")
+@Table(name = "alumnos", catalog = "basedatos", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Alumnos.findAll", query = "SELECT a FROM Alumnos a"),
@@ -201,7 +201,7 @@ public class Alumnos implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sv.udb.modelos.Alumnos[ codiAlum=" + codiAlum + " ]";
+        return "com.sv.udb.modelo.Alumnos[ codiAlum=" + codiAlum + " ]";
     }
     
 }
