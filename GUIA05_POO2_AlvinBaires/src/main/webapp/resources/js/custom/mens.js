@@ -17,6 +17,7 @@ function setMessage(tipo, title, msg)
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+    
     if (tipo === 'MESS_WARN')
     {
         toastr.warning(msg, title);
